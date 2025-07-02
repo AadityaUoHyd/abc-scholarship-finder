@@ -1,6 +1,10 @@
 # abc-scholarship-finder
 Spring AI project for finding scholarship across globe for students.
 
+## Sample Users
+testuser/Password#123,
+aadi/123
+
 ## The code structure
 ```
 abc-scholarship-finder

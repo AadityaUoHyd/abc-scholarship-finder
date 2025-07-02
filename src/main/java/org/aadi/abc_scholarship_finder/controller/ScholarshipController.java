@@ -47,13 +47,17 @@ public class ScholarshipController {
             @RequestParam(required = false, defaultValue = "") String educationLevel,
             @AuthenticationPrincipal User currentUser,
             Model model) {
-
-        List<Scholarship> scholarships = scholarshipService.findScholarships(country, field, educationLevel);
+        List<Scholarship> scholarships;
+        if (country.isEmpty() && field.isEmpty() && educationLevel.isEmpty()) {
+            scholarships = scholarshipService.getAllActiveScholarships();
+        } else {
+            scholarships = scholarshipService.findScholarships(country, field, educationLevel);
+        }
         model.addAttribute("scholarships", scholarships);
         model.addAttribute("country", country);
         model.addAttribute("field", field);
         model.addAttribute("educationLevel", educationLevel);
-        model.addAttribute("currentUser", currentUser); // Pass current user for pre-populating AI form
+        model.addAttribute("currentUser", currentUser);
         return "search";
     }
 

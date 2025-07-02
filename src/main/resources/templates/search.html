@@ -83,7 +83,7 @@
                     <h5 class="card-title text-primary" th:text="${scholarship.name}">Scholarship Name</h5>
                     <h6 class="card-subtitle mb-2 text-muted" th:text="${scholarship.provider}">Provider Name</h6>
                     <p class="card-text mb-1"><strong>Amount:</strong> INR <span th:text="${#numbers.formatDecimal(scholarship.amountInr, 0, 'COMMA', 2, 'POINT')}"></span></p>
-                    <p class="card-text mb-1"><strong>Deadline:</strong> <span th:text="${#dates.format(scholarship.deadline, 'dd MMMM yyyy')}"></span></p>
+                    <p class="card-text mb-1"><strong>Deadline:</strong> <span th:text="${#temporals.format(scholarship.deadline, 'dd MMMM yyyy')}"></span></p>
                     <p class="card-text mb-1"><strong>Country:</strong> <span th:text="${scholarship.country}"></span></p>
                     <p class="card-text mb-3"><strong>Field:</strong> <span th:text="${scholarship.fieldOfStudy}"></span></p>
                     <a th:href="@{/scholarships/{id}(id=${scholarship.id})}" class="btn btn-info btn-sm">View Details</a>

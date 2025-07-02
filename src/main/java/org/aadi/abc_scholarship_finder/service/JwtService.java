@@ -15,8 +15,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-import static io.jsonwebtoken.Jwts.*;
-
 @Service
 public class JwtService {
 
@@ -39,7 +37,7 @@ public class JwtService {
     }
 
     public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
-        return builder()
+        return Jwts.builder()
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
@@ -62,9 +60,7 @@ public class JwtService {
     }
 
     private Claims extractAllClaims(String token) {
-        // This is the line causing the error: Jwts.parserBuilder()
-        return Jwts
-                .parser()
+        return Jwts.parserBuilder()
                 .setSigningKey(getSignInKey())
                 .build()
                 .parseClaimsJws(token)

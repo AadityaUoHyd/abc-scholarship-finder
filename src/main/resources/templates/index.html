@@ -23,7 +23,7 @@
                     <a th:href="@{/login}" class="btn btn-outline-light btn-lg m-2 p-2">Login</a>
                 </div>
                 <div sec:authorize="isAuthenticated()">
-                    <a th:href="@{/search}" class="btn btn-primary btn-lg me-3">Find Scholarships</a>
+                    <a th:href="@{/scholarships/search}" class="btn btn-primary btn-lg me-3">Find Scholarships</a>
                     <a th:href="@{/scholarships}" class="btn btn-outline-light btn-lg">Browse All</a>
                 </div>
             </div>
