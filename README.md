@@ -1,5 +1,11 @@
 # abc-scholarship-finder
-Spring AI project for finding scholarship across globe for students.
+The ABC-Scholarship-Finder is a web-based application built using Spring Boot, 
+designed to help students discover and apply for scholarships tailored to their 
+academic profiles. The project aims to streamline the scholarship search process 
+by providing a user-friendly platform where students can register, log in, search 
+for scholarships based on criteria like country, field of study, and education level, 
+and access detailed scholarship information. The application leverages modern 
+web technologies and a robust security framework to ensure a seamless and secure user experience.
 
 ## Sample Users
 testuser/Password#123,

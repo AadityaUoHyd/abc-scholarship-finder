@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Scholarships - ABC-Scholarship-Finder</title>
+    <title>Scholarship Search - ABC-Scholarship-Finder</title>
     <link rel="icon" type="image/png" href="/images/logo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/style.css}">
@@ -12,16 +12,10 @@
 <div th:replace="~{fragments/nav :: nav}"></div>
 
 <div class="container my-5">
-    <h2 class="text-center mb-4">Search Scholarships</h2>
+    <h2 class="text-center mb-4">Find Scholarships</h2>
 
     <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
         <span th:text="${errorMessage}"></span>
-    </div>
-    <div th:if="${successMessage}" class="alert alert-success" role="alert">
-        <span th:text="${successMessage}"></span>
-    </div>
-    <div th:if="${aiRecommendations}" class="alert alert-info" role="alert">
-        <span th:utext="${aiRecommendations}"></span>
     </div>
 
     <form th:action="@{/scholarships/search}" method="get" class="mb-4">
@@ -37,7 +31,7 @@
             <div class="col-md-4">
                 <label for="educationLevel" class="form-label">Education Level</label>
                 <select class="form-select" id="educationLevel" name="educationLevel">
-                    <option value="" th:selected="${educationLevel == ''}">Select...</option>
+                    <option value="" th:selected="${educationLevel == ''}">All</option>
                     <option value="High School" th:selected="${educationLevel == 'High School'}">High School</option>
                     <option value="Undergraduate" th:selected="${educationLevel == 'Undergraduate'}">Undergraduate</option>
                     <option value="Graduate" th:selected="${educationLevel == 'Graduate'}">Graduate</option>
@@ -51,50 +45,42 @@
         </div>
     </form>
 
-    <div th:if="${currentUser != null and !currentUser.username.isEmpty()}">
-        <h3 class="mb-3">AI-Powered Scholarship Recommendations</h3>
-        <form th:action="@{/scholarships/search/recommend}" method="post" class="mb-4">
-            <div class="mb-3">
-                <label for="userBackground" class="form-label">Your Background</label>
-                <textarea class="form-control" id="userBackground" name="userBackground" rows="3" th:text="${currentUser.educationLevel + ', ' + currentUser.majorField + ', GPA: ' + currentUser.gpa + ', Country: ' + currentUser.country}"></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="userGoals" class="form-label">Your Goals</label>
-                <textarea class="form-control" id="userGoals" name="userGoals" rows="3" th:text="${currentUser.goals}"></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="userInterests" class="form-label">Your Interests</label>
-                <textarea class="form-control" id="userInterests" name="userInterests" rows="3" th:text="${currentUser.interests}"></textarea>
-            </div>
-            <div class="d-grid">
-                <button type="submit" class="btn btn-success">Get AI Recommendations</button>
-            </div>
-        </form>
-    </div>
-
-    <h3 class="mb-4">Search Results</h3>
-    <div th:if="${scholarships.empty}" class="alert alert-info text-center" role="alert">
+    <div th:if="${scholarships.isEmpty()}" class="alert alert-info">
         No scholarships found matching your criteria.
     </div>
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-        <div class="col" th:each="scholarship : ${scholarships}">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title text-primary" th:text="${scholarship.name}">Scholarship Name</h5>
-                    <h6 class="card-subtitle mb-2 text-muted" th:text="${scholarship.provider}">Provider Name</h6>
-                    <p class="card-text mb-1"><strong>Amount:</strong> INR <span th:text="${#numbers.formatDecimal(scholarship.amountInr, 0, 'COMMA', 2, 'POINT')}"></span></p>
-                    <p class="card-text mb-1"><strong>Deadline:</strong> <span th:text="${#temporals.format(scholarship.deadline, 'dd MMMM yyyy')}"></span></p>
-                    <p class="card-text mb-1"><strong>Country:</strong> <span th:text="${scholarship.country}"></span></p>
-                    <p class="card-text mb-3"><strong>Field:</strong> <span th:text="${scholarship.fieldOfStudy}"></span></p>
-                    <a th:href="@{/scholarships/{id}(id=${scholarship.id})}" class="btn btn-info btn-sm">View Details</a>
-                </div>
-            </div>
-        </div>
+
+    <div th:unless="${scholarships.isEmpty()}">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Amount (INR)</th>
+                <th>Deadline</th>
+                <th>Country</th>
+                <th>Education Level</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="scholarship : ${scholarships}">
+                <td th:text="${scholarship.name}"></td>
+                <td th:text="${scholarship.description}"></td>
+                <td th:text="${scholarship.amountInr}"></td>
+                <!-- Fix for line 86: Use #temporals for LocalDate -->
+                <td th:text="${#temporals.format(scholarship.deadline, 'dd MMMM yyyy')}"></td>
+                <td th:text="${scholarship.country}"></td>
+                <td th:text="${scholarship.educationLevel}"></td>
+                <td><a th:href="${scholarship.websiteUrl}" class="btn btn-sm btn-outline-primary" target="_blank">Apply</a></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 
 <div th:replace="~{fragments/footer :: footer}"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/script.js}"></script>
 </body>
 </html>
