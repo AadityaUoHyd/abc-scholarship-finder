@@ -1,0 +1,14 @@
+-- src/main/resources/data.sql (Example data - passwords should be BCrypt hashed)
+INSERT INTO roles (name) VALUES ('ROLE_USER') ON CONFLICT (name) DO NOTHING;
+INSERT INTO roles (name) VALUES ('ROLE_ADMIN') ON CONFLICT (name) DO NOTHING;
+
+-- Example User (password: password123, BCrypt hash will be generated on registration)
+INSERT INTO users (username, password, email, first_name, last_name, education_level, major_field, gpa, country, interests, goals) VALUES ('testuser', '$2a$10$YourBCryptHashHere', 'test@example.com', 'Test', 'User', 'Undergraduate', 'Computer Science', 3.8, 'India', 'AI, Machine Learning, Data Science', 'Become an AI researcher');
+
+-- Example Scholarship Data (amounts in INR)
+INSERT INTO scholarships (name, description, amount_inr, deadline, eligibility_criteria, country, field_of_study, education_level, provider, website_url, is_active) VALUES
+('Reliance Foundation Scholarships', 'Scholarships for Indian students pursuing undergraduate and postgraduate studies in various fields.', 600000.00, '2025-11-15', 'Indian citizen, excellent academic record, financial need, enrolled in a recognized Indian institution.', 'India', 'All Fields', 'Undergraduate, Graduate', 'Reliance Foundation', 'https://www.reliancefoundation.org/scholarships', TRUE),
+('Sudha Chatterjee Foundation Scholarships', 'Scholarships for Indian students to pursue postgraduate degrees in top universities abroad.', 2500000.00, '2025-10-31', 'Indian citizen, age under 30, strong academic record, admission to a top foreign university.', 'Any', 'All Fields', 'Graduate', 'Inlaks Shivdasani Foundation', 'https://www.inlaksfoundation.org/', TRUE),
+('Tata Trusts Scholarships', 'Various scholarships for Indian students across different academic disciplines and levels.', 450000.00, '2025-09-30', 'Indian citizen, specific academic and financial criteria based on scholarship type.', 'India', 'Various', 'Undergraduate, Graduate, PhD', 'Tata Trusts', 'https://www.tatatrusts.org/our-work/individual-grants/scholarships', TRUE),
+('Google Generation Scholarship', 'Scholarships for aspiring computer scientists to help them pursue their passion.', 750000.00, '2025-12-01', 'Strong academic performance, leadership potential, enrolled in a computer science program.', 'India, USA, Europe', 'Computer Science', 'Undergraduate, Graduate', 'Google', 'https://buildyourfuture.withgoogle.com/scholarships', TRUE),
+('K.C. Mahindra Scholarships for Post-Graduate Studies Abroad', 'Interest-free loan scholarships for Indian students for post-graduate studies abroad.', 1500000.00, '2025-09-01', 'Indian citizen, first-class degree, admission to a reputed foreign university.', 'Any', 'All Fields', 'Graduate', 'K.C. Mahindra Education Trust', 'https://www.kcmet.org/what-we-do/scholarships/post-graduate-scholarships', TRUE);

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABC-Scholarship-Finder - Find Your Future</title>
+    <link rel="icon" type="image/png" href="/images/logo.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/nav :: nav}"></div>
+
+<header class="hero-section">
+    <div class="hero-image-container">
+        <img src="/images/hero-scholarship.jpg" alt="Students celebrating with graduation caps" class="img-fluid hero-image">
+        <div class="hero-overlay">
+            <div class="container text-center text-white">
+                <h1 class="display-3 fw-bold mb-4">Unlock Your Potential with ABC-Scholarship-Finder</h1>
+                <p class="lead mb-5">Discover tailored scholarships, fellowships, and grants that match your unique background, goals, and interests. Your academic future starts here.</p>
+                <div sec:authorize="!isAuthenticated()">
+                    <a th:href="@{/register}" class="btn btn-primary btn-lg me-3 m-2 p-2">Register Now</a>
+                    <a th:href="@{/login}" class="btn btn-outline-light btn-lg m-2 p-2">Login</a>
+                </div>
+                <div sec:authorize="isAuthenticated()">
+                    <a th:href="@{/search}" class="btn btn-primary btn-lg me-3">Find Scholarships</a>
+                    <a th:href="@{/scholarships}" class="btn btn-outline-light btn-lg">Browse All</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="container my-5 py-5 text-center">
+    <h2 class="mb-5 display-4 fw-bold">How It Works</h2>
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <img src="/images/icon-profile.png" alt="Profile Icon" class="img-fluid mb-3 feature-icon">
+            <h3 class="h5">Create Your Profile</h3>
+            <p>Tell us about your academic background, career goals, and personal interests.</p>
+        </div>
+        <div class="col-md-4 mb-4">
+            <img src="/images/icon-ai-match.png" alt="AI Match Icon" class="img-fluid mb-3 feature-icon">
+            <h3 class="h5">AI-Powered Matching</h3>
+            <p>Our intelligent system uses AI to find the most relevant opportunities for you.</p>
+        </div>
+        <div class="col-md-4 mb-4">
+            <img src="/images/icon-apply.png" alt="Apply Icon" class="img-fluid mb-3 feature-icon">
+            <h3 class="h5">Apply & Succeed</h3>
+            <p>Access direct links to scholarship applications and start your journey.</p>
+        </div>
+    </div>
+</section>
+
+<section class="bg-light py-5">
+    <div class="container text-center">
+        <h2 class="mb-4 display-4 fw-bold">Why Choose ABC-Scholarship-Finder?</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <img src="/images/feature-global.png" class="card-img-top feature-image" alt="Global Scholarships">
+                    <div class="card-body">
+                        <h5 class="card-title">Global Opportunities</h5>
+                        <p class="card-text">Find scholarships not just in India, but across the globe.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <img src="/images/feature-personalized.png" class="card-img-top feature-image" alt="Personalized Matching">
+                    <div class="card-body">
+                        <h5 class="card-title">Personalized Matching</h5>
+                        <p class="card-text">Get recommendations specifically tailored to your profile.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <img src="/images/feature-secure.png" class="card-img-top feature-image" alt="Secure and Easy">
+                    <div class="card-body">
+                        <h5 class="card-title">Secure & Easy to Use</h5>
+                        <p class="card-text">A user-friendly interface with secure authentication for your peace of mind.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
