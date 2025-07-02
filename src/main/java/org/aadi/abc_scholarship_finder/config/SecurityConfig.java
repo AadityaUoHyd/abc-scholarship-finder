@@ -48,7 +48,7 @@ public class SecurityConfig {
                         .authenticationEntryPoint(jwtAuthenticationEntryPoint))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/api/auth/login", "/api/auth/register").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/login", "/register", "/", "/css/**", "/js/**", "/images/**", "/info/privacy", "/info/contact", "/info/terms").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/login", "/register", "/", "/css/**", "/js/**", "/images/**", "/info/privacy", "/info/contact", "/info/terms", "/info/about").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/scholarships/**", "/user/**").authenticated()
                         .anyRequest().authenticated()

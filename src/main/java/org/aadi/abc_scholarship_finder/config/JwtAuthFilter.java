@@ -124,6 +124,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 path.equals("/info/privacy") ||
                 path.equals("/info/contact") ||
                 path.equals("/info/terms") ||
+                path.equals("/info/about") ||
                 path.equals("/");
         logger.debug("shouldNotFilter for path {}: {}", path, skip);
         return skip;
