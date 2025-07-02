@@ -17,7 +17,12 @@
     <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
         <span th:text="${errorMessage}"></span>
     </div>
+    <div th:if="${successMessage}" class="alert alert-success" role="alert">
+        <span th:text="${successMessage}"></span>
+    </div>
 
+    <!-- Database Search Form -->
+    <h4 class="mb-3">Search Database Scholarships</h4>
     <form th:action="@{/scholarships/search}" method="get" class="mb-4">
         <div class="row g-3">
             <div class="col-md-4">
@@ -41,40 +46,136 @@
             </div>
         </div>
         <div class="d-grid mt-3">
-            <button type="submit" class="btn btn-primary">Search</button>
+            <button type="submit" class="btn btn-primary">Search Database</button>
         </div>
     </form>
 
-    <div th:if="${scholarships.isEmpty()}" class="alert alert-info">
-        No scholarships found matching your criteria.
+    <!-- AI Global Search Form -->
+    <h4 class="mb-3">Search Global Scholarships with AI</h4>
+    <form th:action="@{/scholarships/search/ai}" method="post" class="mb-4">
+        <div class="row g-3">
+            <div class="col-md-4">
+                <label for="userBackground" class="form-label">Your Background</label>
+                <textarea class="form-control" id="userBackground" name="userBackground" rows="3" th:text="${currentUser != null ? (currentUser.educationLevel != null ? currentUser.educationLevel + ' student in ' + (currentUser.majorField ?: 'unspecified field') + ', ' + (currentUser.country ?: 'unspecified country') : 'Not specified') : 'Not specified'}"></textarea>
+            </div>
+            <div class="col-md-4">
+                <label for="userGoals" class="form-label">Your Goals</label>
+                <textarea class="form-control" id="userGoals" name="userGoals" rows="3" th:text="${currentUser?.goals ?: ''}"></textarea>
+            </div>
+            <div class="col-md-4">
+                <label for="userInterests" class="form-label">Your Interests</label>
+                <textarea class="form-control" id="userInterests" name="userInterests" rows="3" th:text="${currentUser?.interests ?: ''}"></textarea>
+            </div>
+        </div>
+        <div class="d-grid mt-3">
+            <button type="submit" class="btn btn-primary" th:disabled="${currentUser == null}">Search with AI</button>
+        </div>
+    </form>
+
+    <!-- Database Recommendations -->
+    <div th:if="${aiRecommendations}" class="mt-4">
+        <h4>AI Recommendations (Database)</h4>
+        <div class="card p-3" th:utext="${aiRecommendations}"></div>
     </div>
 
-    <div th:unless="${scholarships.isEmpty()}">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Amount (INR)</th>
-                <th>Deadline</th>
-                <th>Country</th>
-                <th>Education Level</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="scholarship : ${scholarships}">
-                <td th:text="${scholarship.name}"></td>
-                <td th:text="${scholarship.description}"></td>
-                <td th:text="${scholarship.amountInr}"></td>
-                <!-- Fix for line 86: Use #temporals for LocalDate -->
-                <td th:text="${#temporals.format(scholarship.deadline, 'dd MMMM yyyy')}"></td>
-                <td th:text="${scholarship.country}"></td>
-                <td th:text="${scholarship.educationLevel}"></td>
-                <td><a th:href="${scholarship.websiteUrl}" class="btn btn-sm btn-outline-primary" target="_blank">Apply</a></td>
-            </tr>
-            </tbody>
-        </table>
+    <!-- Global AI Search Results -->
+    <div th:if="${aiSearchResults != null}" class="mt-4">
+        <h4>AI Global Scholarship Results</h4>
+        <div th:if="${aiSearchResults.isEmpty()}" class="alert alert-info">
+            No scholarships found for your AI search criteria. Try broadening your background, goals, or interests.
+        </div>
+        <div th:unless="${aiSearchResults.isEmpty()}">
+            <table class="table table-striped">
+                <thead>
+                <tr bgcolor="#00ffff">
+                    <th>Name</th>
+                    <th>Provider</th>
+                    <th>Amount</th>
+                    <th>Deadline</th>
+                    <th>Country</th>
+                    <th>Education Level</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="scholarship : ${aiSearchResults.content}">
+                    <td th:text="${scholarship.name}"></td>
+                    <td th:text="${scholarship.provider}"></td>
+                    <td th:text="${#numbers.formatDecimal(scholarship.amountInr, 0, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#temporals.format(scholarship.deadline, 'dd MMMM yyyy')}"></td>
+                    <td th:text="${scholarship.country}"></td>
+                    <td th:text="${scholarship.educationLevel}"></td>
+                    <td><a th:href="${scholarship.websiteUrl}" class="btn btn-sm btn-outline-primary" target="_blank">Apply</a></td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- Pagination Controls for AI Search -->
+            <nav aria-label="AI Search Pagination">
+                <ul class="pagination">
+                    <li class="page-item" th:classappend="${aiSearchResults.first} ? 'disabled'">
+                        <a class="page-link" th:href="@{/scholarships/search?page=${aiSearchResults.number - 1}&size=${aiSearchResults.size}}">Previous</a>
+                    </li>
+                    <li class="page-item" th:each="i : ${#numbers.sequence(0, aiSearchResults.totalPages - 1)}" th:classappend="${i == aiSearchResults.number} ? 'active'">
+                        <a class="page-link" th:href="@{/scholarships/search?page=${i}&size=${aiSearchResults.size}}" th:text="${i + 1}"></a>
+                    </li>
+                    <li class="page-item" th:classappend="${aiSearchResults.last} ? 'disabled'">
+                        <a class="page-link" th:href="@{/scholarships/search?page=${aiSearchResults.number + 1}&size=${aiSearchResults.size}}">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Database Search Results -->
+    <div th:if="${scholarships != null}" class="mt-4">
+        <h4>Database Search Results</h4>
+        <div th:if="${scholarships.isEmpty()}" class="alert alert-info">
+            No scholarships found matching your database search criteria.
+        </div>
+        <div th:unless="${scholarships.isEmpty()}">
+            <table class="table table-striped">
+                <thead>
+                <tr bgcolor="#00ffff">
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Amount (INR)</th>
+                    <th>Deadline</th>
+                    <th>Country</th>
+                    <th>Education Level</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="scholarship : ${scholarships.content}">
+                    <td th:text="${scholarship.name}"></td>
+                    <td th:text="${scholarship.description}"></td>
+                    <td th:text="${#numbers.formatDecimal(scholarship.amountInr, 0, 'COMMA', 2, 'POINT')}"></td>
+                    <td th:text="${#temporals.format(scholarship.deadline, 'dd MMMM yyyy')}"></td>
+                    <td th:text="${scholarship.country}"></td>
+                    <td th:text="${scholarship.educationLevel}"></td>
+                    <td><a th:href="${scholarship.websiteUrl}" class="btn btn-sm btn-outline-primary" target="_blank">Apply</a></td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- Pagination Controls for Database Search -->
+            <nav aria-label="Database Search Pagination">
+                <ul class="pagination">
+                    <li class="page-item" th:classappend="${scholarships.first} ? 'disabled'">
+                        <a class="page-link" th:href="@{/scholarships/search?page=${scholarships.number - 1}&size=${scholarships.size}&country=${country}&field=${field}&educationLevel=${educationLevel}}">Previous</a>
+                    </li>
+                    <li class="page-item" th:each="i : ${#numbers.sequence(0, scholarships.totalPages - 1)}" th:classappend="${i == scholarships.number} ? 'active'">
+                        <a class="page-link" th:href="@{/scholarships/search?page=${i}&size=${scholarships.size}&country=${country}&field=${field}&educationLevel=${educationLevel}}" th:text="${i + 1}"></a>
+                    </li>
+                    <li class="page-item" th:classappend="${scholarships.last} ? 'disabled'">
+                        <a class="page-link" th:href="@{/scholarships/search?page=${scholarships.number + 1}&size=${scholarships.size}&country=${country}&field=${field}&educationLevel=${educationLevel}}">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <div th:if="${scholarships.isEmpty() and aiSearchResults.isEmpty()}" class="alert alert-info">
+        No scholarships found matching your criteria.
     </div>
 </div>
 

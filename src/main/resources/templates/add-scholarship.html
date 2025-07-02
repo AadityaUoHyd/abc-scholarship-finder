@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Scholarship - ABC-Scholarship-Finder</title>
+    <link rel="icon" type="image/png" href="/images/logo.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/nav :: nav}"></div>
+
+<div class="container my-5">
+    <h2 class="text-center mb-4">Add New Scholarship</h2>
+
+    <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+        <span th:text="${errorMessage}"></span>
+    </div>
+    <div th:if="${successMessage}" class="alert alert-success" role="alert">
+        <span th:text="${successMessage}"></span>
+    </div>
+
+    <form th:action="@{/admin/scholarships/add}" method="post" th:object="${scholarship}">
+        <div class="mb-3">
+            <label for="name" class="form-label">Scholarship Name</label>
+            <input type="text" class="form-control" id="name" th:field="*{name}" required>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" th:field="*{description}" rows="4"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="amountInr" class="form-label">Amount (INR)</label>
+            <input type="number" step="0.01" class="form-control" id="amountInr" th:field="*{amountInr}" required>
+        </div>
+        <div class="mb-3">
+            <label for="deadline" class="form-label">Deadline</label>
+            <input type="date" class="form-control" id="deadline" th:field="*{deadline}" required>
+        </div>
+        <div class="mb-3">
+            <label for="eligibilityCriteria" class="form-label">Eligibility Criteria</label>
+            <textarea class="form-control" id="eligibilityCriteria" th:field="*{eligibilityCriteria}" rows="4"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="country" class="form-label">Country</label>
+            <input type="text" class="form-control" id="country" th:field="*{country}">
+        </div>
+        <div class="mb-3">
+            <label for="fieldOfStudy" class="form-label">Field of Study</label>
+            <input type="text" class="form-control" id="fieldOfStudy" th:field="*{fieldOfStudy}">
+        </div>
+        <div class="mb-3">
+            <label for="educationLevel" class="form-label">Education Level</label>
+            <select class="form-select" id="educationLevel" th:field="*{educationLevel}">
+                <option value="">Select Level</option>
+                <option value="High School">High School</option>
+                <option value="Undergraduate">Undergraduate</option>
+                <option value="Graduate">Graduate</option>
+                <option value="PhD">PhD</option>
+                <option value="Post-Doctoral">Post-Doctoral</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="provider" class="form-label">Provider</label>
+            <input type="text" class="form-control" id="provider" th:field="*{provider}">
+        </div>
+        <div class="mb-3">
+            <label for="websiteUrl" class="form-label">Website URL</label>
+            <input type="url" class="form-control" id="websiteUrl" th:field="*{websiteUrl}">
+        </div>
+        <div class="d-grid">
+            <button type="submit" class="btn btn-primary">Add Scholarship</button>
+        </div>
+    </form>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

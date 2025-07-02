@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +14,14 @@
 <div class="container my-5">
     <h2 class="text-center mb-4">All Available Scholarships</h2>
 
-    <div th:if="${scholarships.empty}" class="alert alert-info text-center" role="alert">
+    <div th:if="${successMessage}" class="alert alert-success" role="alert">
+        <span th:text="${successMessage}"></span>
+    </div>
+    <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+        <span th:text="${errorMessage}"></span>
+    </div>
+
+    <div th:if="${scholarships.isEmpty()}" class="alert alert-info text-center" role="alert">
         No scholarships currently available.
     </div>
 
@@ -25,10 +32,13 @@
                     <h5 class="card-title text-primary" th:text="${scholarship.name}">Scholarship Name</h5>
                     <h6 class="card-subtitle mb-2 text-muted" th:text="${scholarship.provider}">Provider Name</h6>
                     <p class="card-text mb-1"><strong>Amount:</strong> INR <span th:text="${#numbers.formatDecimal(scholarship.amountInr, 0, 'COMMA', 2, 'POINT')}"></span></p>
-                    <p class="card-text mb-1"><strong>Deadline:</strong> <span th:text="${#dates.format(scholarship.deadline, 'dd MMMM yyyy')}"></span></p>
+                    <p class="card-text mb-1"><strong>Deadline:</strong> <span th:text="${#temporals.format(scholarship.deadline, 'dd MMMM yyyy')}"></span></p>
                     <p class="card-text mb-1"><strong>Country:</strong> <span th:text="${scholarship.country}"></span></p>
                     <p class="card-text mb-3"><strong>Field:</strong> <span th:text="${scholarship.fieldOfStudy}"></span></p>
                     <a th:href="@{/scholarships/{id}(id=${scholarship.id})}" class="btn btn-info btn-sm">View Details</a>
+                    <form th:action="@{/scholarships/{id}/favorite(id=${scholarship.id})}" method="post" class="d-inline" sec:authorize="isAuthenticated()">
+                        <button type="submit" class="btn btn-sm btn-outline-primary">Add to Favorites</button>
+                    </form>
                 </div>
             </div>
         </div>

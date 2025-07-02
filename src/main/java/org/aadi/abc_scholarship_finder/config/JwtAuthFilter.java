@@ -52,7 +52,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         // 1. Try to get JWT from Authorization header
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             jwt = authHeader.substring(7);
-            logger.debug("Found JWT in Authorization header");
+            logger.debug("Found JWT in Authorization header: {}", jwt.substring(0, Math.min(jwt.length(), 10)) + "...");
         } else {
             // 2. Try to get JWT from cookie
             if (request.getCookies() != null) {
@@ -61,14 +61,18 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                         .findFirst();
                 if (jwtCookie.isPresent()) {
                     jwt = jwtCookie.get().getValue();
-                    logger.debug("Found JWT in cookie");
+                    logger.debug("Found JWT in cookie: {}", jwt.substring(0, Math.min(jwt.length(), 10)) + "...");
+                } else {
+                    logger.warn("No JWT cookie found for path: {}", request.getServletPath());
                 }
+            } else {
+                logger.warn("No cookies present for path: {}", request.getServletPath());
             }
         }
 
         // If no JWT, proceed to next filter
         if (jwt == null) {
-            logger.debug("No JWT found, proceeding to next filter");
+            logger.warn("No JWT found for path: {}, redirecting to login", request.getServletPath());
             filterChain.doFilter(request, response);
             return;
         }
@@ -78,26 +82,32 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             username = jwtService.extractUsername(jwt);
             logger.debug("Extracted username: {}", username);
         } catch (Exception e) {
-            logger.warn("JWT extraction failed: {}", e.getMessage());
+            logger.error("JWT extraction failed for path {}: {}", request.getServletPath(), e.getMessage(), e);
             filterChain.doFilter(request, response);
             return;
         }
 
         // Authenticate if username is valid and no existing authentication
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-            if (jwtService.isTokenValid(jwt, userDetails)) {
-                logger.debug("JWT is valid for user: {}", username);
-                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                        userDetails,
-                        null,
-                        userDetails.getAuthorities()
-                );
-                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authToken);
-            } else {
-                logger.warn("Invalid JWT for user: {}", username);
+            try {
+                UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+                if (jwtService.isTokenValid(jwt, userDetails)) {
+                    logger.debug("JWT is valid for user: {}", username);
+                    UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                            userDetails,
+                            null,
+                            userDetails.getAuthorities()
+                    );
+                    authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(authToken);
+                } else {
+                    logger.error("Invalid JWT for user: {} at path: {}", username, request.getServletPath());
+                }
+            } catch (Exception e) {
+                logger.error("Authentication failed for user: {} at path: {}: {}", username, request.getServletPath(), e.getMessage(), e);
             }
+        } else {
+            logger.warn("No username extracted or authentication already exists for path: {}", request.getServletPath());
         }
         filterChain.doFilter(request, response);
     }
@@ -111,6 +121,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 path.startsWith("/css/") ||
                 path.startsWith("/js/") ||
                 path.startsWith("/images/") ||
+                path.equals("/info/privacy") ||
+                path.equals("/info/contact") ||
+                path.equals("/info/terms") ||
                 path.equals("/");
         logger.debug("shouldNotFilter for path {}: {}", path, skip);
         return skip;

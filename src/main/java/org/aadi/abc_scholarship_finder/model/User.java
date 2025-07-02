@@ -52,6 +52,24 @@ public class User implements UserDetails {
     )
     private Set<Role> roles = new HashSet<>();
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "user_favorites",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "scholarship_id")
+    )
+    private Set<Scholarship> favoriteScholarships = new HashSet<>();
+
+    public void addFavorite(Scholarship scholarship) {
+        favoriteScholarships.add(scholarship);
+        scholarship.getFavoritedBy().add(this);
+    }
+
+    public void removeFavorite(Scholarship scholarship) {
+        favoriteScholarships.remove(scholarship);
+        scholarship.getFavoritedBy().remove(this);
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream()
@@ -77,5 +95,9 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public boolean isAdmin() {
+        return roles.stream().anyMatch(role -> "ROLE_ADMIN".equals(role.getName()));
     }
 }

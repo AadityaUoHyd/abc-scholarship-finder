@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -34,5 +36,23 @@ public class Scholarship {
     private String educationLevel;
     private String provider;
     private String websiteUrl;
-    private boolean isActive; // To enable/disable scholarships
+    private boolean isActive;
+    @ManyToMany(mappedBy = "favoriteScholarships")
+    private Set<User> favoritedBy = new HashSet<>();
+
+    // Constructor for AI-parsed scholarships
+    public Scholarship(String name, String provider, BigDecimal amountInr, LocalDate deadline,
+                       String eligibilityCriteria, String country, String fieldOfStudy,
+                       String educationLevel, String websiteUrl, boolean isActive) {
+        this.name = name;
+        this.provider = provider;
+        this.amountInr = amountInr;
+        this.deadline = deadline;
+        this.eligibilityCriteria = eligibilityCriteria;
+        this.country = country;
+        this.fieldOfStudy = fieldOfStudy;
+        this.educationLevel = educationLevel;
+        this.websiteUrl = websiteUrl;
+        this.isActive = isActive;
+    }
 }

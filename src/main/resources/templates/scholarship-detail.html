@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,7 +19,7 @@
                 <h5 class="card-subtitle mb-4 text-muted" th:text="${scholarship.provider}">Provider Name</h5>
 
                 <p class="card-text mb-2"><strong>Amount:</strong> INR <span th:text="${#numbers.formatDecimal(scholarship.amountInr, 0, 'COMMA', 2, 'POINT')}"></span></p>
-                <p class="card-text mb-2"><strong>Deadline:</strong> <span th:text="${#dates.format(scholarship.deadline, 'dd MMMM yyyy')}"></span></p>
+                <p class="card-text mb-2"><strong>Deadline:</strong> <span th:text="${#temporals.format(scholarship.deadline, 'dd MMMM yyyy')}"></span></p>
                 <p class="card-text mb-2"><strong>Country:</strong> <span th:text="${scholarship.country}"></span></p>
                 <p class="card-text mb-2"><strong>Field of Study:</strong> <span th:text="${scholarship.fieldOfStudy}"></span></p>
                 <p class="card-text mb-4"><strong>Education Level:</strong> <span th:text="${scholarship.educationLevel}"></span></p>
@@ -33,12 +33,19 @@
                 <h4 class="mt-4 mb-3">Learn More</h4>
                 <p class="card-text"><a th:href="${scholarship.websiteUrl}" target="_blank" class="btn btn-success">Visit Scholarship Website</a></p>
 
-                <div class="mt-4 text-end">
-                    <a th:href="@{/scholarships}" class="btn btn-outline-secondary">Back to all Scholarships</a>
-                </div>
             </div>
         </div>
     </div>
+</div>
+
+<div class="m-4 text-center">
+    <form th:action="@{/scholarships/{id}/favorite(id=${scholarship.id})}" method="post" class="d-inline">
+        <button type="submit" class="btn btn-outline-primary me-2">Add to Favorites</button>
+    </form>
+    <form th:action="@{/scholarships/{id}/unfavorite(id=${scholarship.id})}" method="post" class="d-inline">
+        <button type="submit" class="btn btn-outline-danger me-2">Remove from Favorites</button>
+    </form>
+    <a th:href="@{/scholarships}" class="btn btn-outline-secondary">Back to all Scholarships</a>
 </div>
 
 <div th:replace="~{fragments/footer :: footer}"></div>

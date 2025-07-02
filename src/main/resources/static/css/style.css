@@ -1,12 +1,218 @@
 /* General Body Styles */
 body {
-    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     background-color: #f8f9fa;
     color: #343a40;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
+
+        .hero-section {
+            position: relative;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-image {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-overlay .container {
+            z-index: 3;
+        }
+        .feature-icon {
+            max-width: 80px;
+            transition: transform 0.3s ease;
+        }
+        .feature-icon:hover {
+            transform: scale(1.1);
+        }
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .feature-image {
+            height: 200px;
+            object-fit: cover;
+        }
+        .cta-section {
+            background: linear-gradient(135deg, #007bff, #6610f2);
+            color: white;
+            padding: 60px 0;
+        }
+        .testimonial-section {
+            background-color: #fff;
+            padding: 60px 0;
+        }
+        .testimonial-card {
+            background-color: #f8f9fa;
+            border: none;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .animate__animated {
+            animation-duration: 1s;
+        }
+        .animate__fadeInUp {
+            animation-name: fadeInUp;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+                /* Testimonials */
+                .testimonial-section {
+                    background-color: #fff;
+                    padding: 60px 0;
+                }
+                .testimonial-card {
+                    background-color: #f8f9fa;
+                    border: none;
+                    border-radius: 10px;
+                    padding: 20px;
+                    margin: 0 auto;
+                    max-width: 350px;
+                    min-height: 300px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                    transition: transform 0.3s ease;
+                }
+                .testimonial-card:hover {
+                    transform: translateY(-5px);
+                }
+                .testimonial-card img {
+                    width: 80px;
+                    height: 80px;
+                    object-fit: cover;
+                    margin: 0 auto;
+                }
+                .carousel-item {
+                    padding: 0 15px;
+                }
+                .carousel-control-prev,
+                .carousel-control-next {
+                    width: 5%;
+                    background: rgba(0, 0, 0, 0.3);
+                }
+                @media (max-width: 767px) {
+                    .testimonial-card {
+                        max-width: 100%;
+                        margin-bottom: 20px;
+                    }
+                    .carousel-item .row {
+                        flex-direction: column;
+                        align-items: center;
+                    }
+                    .carousel-item .col-md-4 {
+                        width: 100%;
+                    }
+                    .carousel-control-prev,
+                    .carousel-control-next {
+                        display: none;
+                    }
+                }
+                @media (min-width: 768px) {
+                    .carousel-item .row {
+                        display: flex;
+                        justify-content: center;
+                    }
+                }
+
+
+        /* Universities */
+                .universities-section {
+                    background-color: #f8f9fa;
+                    padding: 60px 0;
+                }
+                .card-title{
+                    color: blue;
+                    margin: 2px;
+                    padding: 2px;
+                }
+                .university-card {
+                    background-color: #fff;
+                    border: none;
+                    border-radius: 10px;
+                    padding: 20px;
+                    margin: 0 auto;
+                    max-width: 350px;
+                    min-height: 400px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                    transition: transform 0.3s ease;
+                }
+                .university-card:hover {
+                    transform: translateY(-5px);
+                }
+                .university-image {
+                    height: 200px;
+                    object-fit: cover;
+                    border-radius: 8px;
+                }
+                .carousel-item {
+                    padding: 0 15px;
+                }
+                .carousel-control-prev,
+                .carousel-control-next {
+                    width: 5%;
+                    background: rgba(0, 0, 0, 0.3);
+                }
+                @media (max-width: 767px) {
+                    .university-card {
+                        max-width: 100%;
+                        margin-bottom: 20px;
+                    }
+                    .carousel-item .row {
+                        flex-direction: column;
+                        align-items: center;
+                    }
+                    .carousel-item .col-md-4 {
+                        width: 100%;
+                    }
+                    .carousel-control-prev,
+                    .carousel-control-next {
+                        display: none;
+                    }
+                }
+                @media (min-width: 768px) {
+                    .carousel-item .row {
+                        display: flex;
+                        justify-content: center;
+                    }
+                }
 
 /* Hero Section */
 .hero-section {

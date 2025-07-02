@@ -1,34 +1,288 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Terms of Service - ABC-Scholarship-Finder</title>
+    <link rel="icon" type="image/png" href="/images/logo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .terms-hero {
+            position: relative;
+            min-height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/terms-hero.png');
+            background-size: cover;
+            background-position: center;
+        }
+        .terms-hero .container {
+            z-index: 2;
+            text-align: center;
+            color: white;
+        }
+        .terms-section {
+            padding: 60px 0;
+        }
+        .accordion-item {
+            border: none;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .accordion-item:hover {
+            transform: translateY(-3px);
+        }
+        .accordion-button {
+            font-weight: 600;
+            background-color: #fff;
+            color: #007bff;
+        }
+        .accordion-button:not(.collapsed) {
+            background-color: #e7f1ff;
+            color: #0056b3;
+        }
+        .accordion-button:focus {
+            box-shadow: none;
+        }
+        .animate__animated {
+            animation-duration: 1s;
+        }
+        .animate__fadeInUp {
+            animation-name: fadeInUp;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @media (max-width: 767px) {
+            .terms-hero {
+                min-height: 40vh;
+            }
+            .accordion-item {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
 <div th:replace="~{fragments/nav :: nav}"></div>
 
-<div class="container py-5">
-    <h1 class="mb-4">Terms of Service</h1>
+<header class="terms-hero">
+    <div class="container">
+        <h1 class="display-3 fw-bold mb-4 animate__animated animate__fadeInUp">Terms of Service</h1>
+        <p class="lead mb-5 animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">Understand the guidelines that ensure a fair and secure experience on ABC-Scholarship-Finder.</p>
+    </div>
+</header>
 
-    <p>By using ABC-Scholarship-Finder, you agree to the following terms and conditions. Please read them carefully.</p>
+<section class="terms-section container my-5 py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <p class="lead mb-5 text-center animate__animated animate__fadeInUp">Please read these Terms of Service ("Terms", "Terms of Service") carefully before using the ABC-Scholarship-Finder platform.</p>
 
-    <h4>Use of Service</h4>
-    <p>You agree to use the service only for lawful purposes and not to submit false or misleading information.</p>
+            <div class="accordion" id="termsAccordion">
+                <div class="accordion-item animate__animated animate__fadeInUp">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            1. Acceptance of Terms
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#termsAccordion">
+                        <div class="accordion-body">
+                            By accessing or using ABC-Scholarship-Finder, you agree to be bound by these Terms. If you do not agree to all of the terms, you may not access the service.
+                        </div>
+                    </div>
+                </div>
 
-    <h4>User Accounts</h4>
-    <p>You are responsible for maintaining the confidentiality of your account and password. Notify us of any unauthorized use immediately.</p>
+                <div class="accordion-item animate__animated animate__fadeInUp" style="animation-delay: 0.1s;">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            2. Use of Service
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#termsAccordion">
+                        <div class="accordion-body">
+                            You may use our platform solely for personal, non-commercial purposes. You agree not to misuse the service or engage in any activity that may harm the platform, its users, or third parties.
+                        </div>
+                    </div>
+                </div>
 
-    <h4>Intellectual Property</h4>
-    <p>All content on this website, including logos, text, and images, is the property of ABC-Scholarship-Finder and protected by copyright laws.</p>
+                <div class="accordion-item animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            3. User Accounts
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#termsAccordion">
+                        <div class="accordion-body">
+                            You must provide accurate and complete information when creating an account. You are responsible for safeguarding your login credentials and for any activity under your account.
+                        </div>
+                    </div>
+                </div>
 
-    <h4>Limitation of Liability</h4>
-    <p>ABC-Scholarship-Finder is not liable for the accuracy of scholarship listings or any losses arising from the use of our platform.</p>
+                <div class="accordion-item animate__animated animate__fadeInUp" style="animation-delay: 0.3s;">
+                    <h2 class="accordion-header" id="headingFour">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            4. Eligibility Criteria
+                        </button>
+                    </h2>
+                    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#termsAccordion">
+                        <div class="accordion-body">
+                            Scholarships listed on our platform may have specific eligibility criteria. It is your responsibility to verify and ensure you meet those criteria before applying.
+                        </div>
+                    </div>
+                </div>
 
-    <h4>Modifications</h4>
-    <p>We reserve the right to update or change these Terms at any time without notice. Continued use means acceptance of the new terms.</p>
-</div>
+                <div class="accordion-item animate__animated animate__fadeInUp" style="animation-delay: 0.4s;">
+                    <h2 class="accordion-header" id="headingFive">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                            5. Scholarship Listings
+                        </button>
+                    </h2>
+                    <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#termsAccordion">
+                        <div class="accordion-body">
+                            While we strive to ensure the accuracy of listings, ABC-Scholarship-Finder does not guarantee the completeness or reliability of any scholarship information provided by third parties.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item animate__animated animate__fadeInUp" style="animation-delay: 0.5s;">
+                    <h2 class="accordion-header" id="headingSix">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                            6. Intellectual Property
+                        </button>
+                    </h2>
+                    <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#termsAccordion">
+                        <div class="accordion-body">
+                            All content on this site, including but not limited to text, graphics, logos, and software, is the property of ABC-Scholarship-Finder and protected under intellectual property laws. Unauthorized use is strictly prohibited.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item animate__animated animate__fadeInUp" style="animation-delay: 0.6s;">
+                    <h2 class="accordion-header" id="headingSeven">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                            7. Third-Party Links
+                        </button>
+                    </h2>
+                    <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#termsAccordion">
+                        <div class="accordion-body">
+                            Our platform may contain links to external websites. ABC-Scholarship-Finder does not endorse and is not responsible for the content or practices of third-party sites.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item animate__animated animate__fadeInUp" style="animation-delay: 0.7s;">
+                    <h2 class="accordion-header" id="headingEight">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                            8. Limitation of Liability
+                        </button>
+                    </h2>
+                    <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#termsAccordion">
+                        <div class="accordion-body">
+                            In no event shall ABC-Scholarship-Finder, its directors, or employees be liable for any direct, indirect, or consequential damages resulting from your use of the service.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item animate__animated animate__fadeInUp" style="animation-delay: 0.8s;">
+                    <h2 class="accordion-header" id="headingNine">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                            9. Disclaimer
+                        </button>
+                    </h2>
+                    <div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine" data-bs-parent="#termsAccordion">
+                        <div class="accordion-body">
+                            ABC-Scholarship-Finder provides information "as is" and "as available" without warranties of any kind. We do not guarantee the availability or suitability of any scholarships listed.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item animate__animated animate__fadeInUp" style="animation-delay: 0.9s;">
+                    <h2 class="accordion-header" id="headingTen">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                            10. Termination
+                        </button>
+                    </h2>
+                    <div id="collapseTen" class="accordion-collapse collapse" aria-labelledby="headingTen" data-bs-parent="#termsAccordion">
+                        <div class="accordion-body">
+                            We reserve the right to suspend or terminate your account and access to the service at our sole discretion, without notice, for conduct that we believe violates these Terms.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item animate__animated animate__fadeInUp" style="animation-delay: 1.0s;">
+                    <h2 class="accordion-header" id="headingEleven">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+                            11. Modifications
+                        </button>
+                    </h2>
+                    <div id="collapseEleven" class="accordion-collapse collapse" aria-labelledby="headingEleven" data-bs-parent="#termsAccordion">
+                        <div class="accordion-body">
+                            We may modify or replace these Terms at any time. We will update the "Last Updated" date at the bottom of this page. Your continued use of the service constitutes acceptance of the revised Terms.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item animate__animated animate__fadeInUp" style="animation-delay: 1.1s;">
+                    <h2 class="accordion-header" id="headingTwelve">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwelve" aria-expanded="false" aria-controls="collapseTwelve">
+                            12. Governing Law
+                        </button>
+                    </h2>
+                    <div id="collapseTwelve" class="accordion-collapse collapse" aria-labelledby="headingTwelve" data-bs-parent="#termsAccordion">
+                        <div class="accordion-body">
+                            These Terms are governed by and construed in accordance with the laws of your local jurisdiction, without regard to its conflict of law provisions.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item animate__animated animate__fadeInUp" style="animation-delay: 1.2s;">
+                    <h2 class="accordion-header" id="headingThirteen">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThirteen" aria-expanded="false" aria-controls="collapseThirteen">
+                            13. Contact Us
+                        </button>
+                    </h2>
+                    <div id="collapseThirteen" class="accordion-collapse collapse" aria-labelledby="headingThirteen" data-bs-parent="#termsAccordion">
+                        <div class="accordion-body">
+                            If you have any questions about these Terms, please contact us at <a href="mailto:support@abc-scholarship-finder.com">support@abc-scholarship-finder.com</a>.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="text-muted mt-5 text-center animate__animated animate__fadeInUp" style="animation-delay: 1.3s;">Last Updated: July 2, 2025</p>
+        </div>
+    </div>
+</section>
 
 <div th:replace="~{fragments/footer :: footer}"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>
 </body>
 </html>

@@ -10,6 +10,14 @@ web technologies and a robust security framework to ensure a seamless and secure
 ## Sample Users
 testuser/Password#123,
 aadi/123
+admin/Password#123
+
+## Pending main task
+- 1. Global AI search completed! but no result is coming for GoogleAiSearch. Not getting any page and link in return for searching scholarship using Google Gemini Studio AI.
+
+- 2. Also 'dashboard' in dropdown menu at navbar, and 'Add to favourites' at All Available Scholarships, going to home page when clicked.
+
+- 3. where as profile link at dropdown menu at navbar redirecting to login page when clicked.
 
 ## The code structure
 ```

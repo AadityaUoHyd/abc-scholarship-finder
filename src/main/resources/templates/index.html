@@ -7,6 +7,7 @@
     <link rel="icon" type="image/png" href="/images/logo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 <div th:replace="~{fragments/nav :: nav}"></div>
@@ -15,7 +16,7 @@
     <div class="hero-image-container">
         <img src="/images/hero-scholarship.png" alt="Students celebrating with graduation caps" class="img-fluid hero-image">
         <div class="hero-overlay">
-            <div class="container text-center text-white">
+            <div class="container text-center text-white animate__animated animate__fadeInUp">
                 <h2 class="display-3 fw-bold mb-4">Unlock Your Potential with</h2>
                 <h1 class="display-3 fw-bold mb-4 text-warning">ABC-Scholarship-Finder</h1>
                 <p class="lead mb-5">Discover tailored scholarships, fellowships, and grants that match your unique background, goals, and interests. Your academic future starts here.</p>
@@ -33,19 +34,19 @@
 </header>
 
 <section class="container my-5 py-5 text-center">
-    <h2 class="mb-5 display-4 fw-bold">How It Works</h2>
+    <h2 class="mb-5 display-4 fw-bold animate__animated animate__fadeInUp">How It Works</h2>
     <div class="row">
-        <div class="col-md-4 mb-4">
+        <div class="col-md-4 mb-4 animate__animated animate__fadeInUp">
             <img src="/images/icon-profile.png" alt="Profile Icon" class="img-fluid mb-3 feature-icon">
             <h3 class="h5">Create Your Profile</h3>
             <p>Tell us about your academic background, career goals, and personal interests.</p>
         </div>
-        <div class="col-md-4 mb-4">
+        <div class="col-md-4 mb-4 animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
             <img src="/images/icon-ai-match.png" alt="AI Match Icon" class="img-fluid mb-3 feature-icon">
             <h3 class="h5">AI-Powered Matching</h3>
             <p>Our intelligent system uses AI to find the most relevant opportunities for you.</p>
         </div>
-        <div class="col-md-4 mb-4">
+        <div class="col-md-4 mb-4 animate__animated animate__fadeInUp" style="animation-delay: 0.4s;">
             <img src="/images/icon-apply.png" alt="Apply Icon" class="img-fluid mb-3 feature-icon">
             <h3 class="h5">Apply & Succeed</h3>
             <p>Access direct links to scholarship applications and start your journey.</p>
@@ -53,11 +54,154 @@
     </div>
 </section>
 
+
+<section class="universities-section">
+    <div class="container text-center">
+        <h2 class="mb-5 display-4 fw-bold animate__animated animate__fadeInUp">Your Top Dream Universities Are Waiting</h2>
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div id="universityCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="row">
+                                <div class="col-md-4 mb-4">
+                                    <div class="university-card h-100">
+                                        <img src="https://images.unsplash.com/photo-1622397333309-3056849bc70b" class="card-img-top university-image" alt="Harvard University">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Harvard University</h5>
+                                            <p class="card-text">Offers need-based scholarships covering 100% of demonstrated financial need, with 55% of undergraduates receiving aid, averaging $60,000 per year.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-4">
+                                    <div class="university-card h-100">
+                                        <img src="https://images.unsplash.com/photo-1617297296495-4af2290c2b84" class="card-img-top university-image" alt="University of Oxford">
+                                        <div class="card-body">
+                                            <h5 class="card-title">University of Oxford</h5>
+                                            <p class="card-text">Provides scholarships like the Care-Experienced Academic Futures, covering course fees and living costs for eligible students.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-4">
+                                    <div class="university-card h-100">
+                                        <img src="https://images.unsplash.com/photo-1732596290220-1d73b74f24e0" class="card-img-top university-image" alt="MIT">
+                                        <div class="card-body">
+                                            <h5 class="card-title">MIT</h5>
+                                            <p class="card-text">Need-blind scholarships ensure affordability, with automatic consideration via CSS Profile, plus grants for low-income first-years.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="row">
+                                <div class="col-md-4 mb-4">
+                                    <div class="university-card h-100">
+                                        <img src="https://images.unsplash.com/photo-1681782421891-5088f13466ec" class="card-img-top university-image" alt="Caltech">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Caltech</h5>
+                                            <p class="card-text">Offers merit-based and need-based scholarships, with funding for STEM-focused students through various endowments.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-4">
+                                    <div class="university-card h-100">
+                                        <img src="https://images.unsplash.com/photo-1681782421930-3a13ae37993c" class="card-img-top university-image" alt="Stanford University">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Stanford University</h5>
+                                            <p class="card-text">Partners with QuestBridge for full scholarships covering tuition, room, and board for low-income students.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-4">
+                                    <div class="university-card h-100">
+                                        <img src="https://images.unsplash.com/photo-1623632306901-e509641e7191" class="card-img-top university-image" alt="University of Cambridge">
+                                        <div class="card-body">
+                                            <h5 class="card-title">University of Cambridge</h5>
+                                            <p class="card-text">Offers scholarships like the Cambridge Trust, providing funding for international and domestic students.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="row">
+                                <div class="col-md-4 mb-4">
+                                    <div class="university-card h-100">
+                                        <img src="https://images.unsplash.com/photo-1637032195172-10b39fb5b8e2" class="card-img-top university-image" alt="Princeton University">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Princeton University</h5>
+                                            <p class="card-text">Provides 100% need-based aid with no loans, ensuring affordability for all admitted students.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-4">
+                                    <div class="university-card h-100">
+                                        <img src="https://cdn.pixabay.com/photo/2019/04/29/00/01/university-of-chicago-4164784_1280.jpg" class="card-img-top university-image" alt="University of Chicago">
+                                        <div class="card-body">
+                                            <h5 class="card-title">University of Chicago</h5>
+                                            <p class="card-text">Automatic merit-based scholarships and need-based grants for international and domestic students.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-4">
+                                    <div class="university-card h-100">
+                                        <img src="https://images.unsplash.com/photo-1448906654166-444d494666b3" class="card-img-top university-image" alt="Imperial College London">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Imperial College London</h5>
+                                            <p class="card-text">Offers studentships and scholarships for STEM and FAME fields, with fixed fees for international students.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="row">
+                                <div class="col-md-4 mb-4">
+                                    <div class="university-card h-100">
+                                        <img src="https://images.unsplash.com/photo-1743291110939-d1bc31239c5f" class="card-img-top university-image" alt="UC Berkeley">
+                                        <div class="card-body">
+                                            <h5 class="card-title">UC Berkeley</h5>
+                                            <p class="card-text">Provides scholarships like the Regents’ and Chancellor’s, supporting diverse students in various fields.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-4 d-none d-md-block">
+                                    <div class="university-card h-100">
+                                        <img src="https://akm-img-a-in.tosshub.com/indiatoday/images/story/201902/Ashoka.jpeg" class="card-img-top university-image" alt="Placeholder">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Ashoka University</h5>
+                                            <p class="card-text">Financial Aid. Need-based aid covering tuition, hostel, and other expenses.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-4 d-none d-md-block">
+                                    <div class="university-card h-100">
+                                        <img src="https://image.telanganatoday.com/wp-content/uploads/2022/11/azim-premji-university_V_jpg--816x480-4g.webp" class="card-img-top university-image" alt="Placeholder">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Azim Premji University</h5>
+                                            <p class="card-text">Financial Aid. Need-based aid covering tuition, hostel, and other expenses.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+
+
 <section class="bg-light py-5">
     <div class="container text-center">
-        <h2 class="mb-4 display-4 fw-bold">Why Choose ABC-Scholarship-Finder?</h2>
+        <h2 class="mb-4 display-4 fw-bold animate__animated animate__fadeInUp">Why Choose ABC-Scholarship-Finder?</h2>
         <div class="row justify-content-center">
-            <div class="col-md-6 col-lg-4 mb-4">
+            <div class="col-md-6 col-lg-4 mb-4 animate__animated animate__fadeInUp">
                 <div class="card h-100 shadow-sm">
                     <img src="/images/feature-global.png" class="card-img-top feature-image" alt="Global Scholarships">
                     <div class="card-body">
@@ -66,7 +210,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-4 mb-4">
+            <div class="col-md-6 col-lg-4 mb-4 animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
                 <div class="card h-100 shadow-sm">
                     <img src="/images/feature-personalized.png" class="card-img-top feature-image" alt="Personalized Matching">
                     <div class="card-body">
@@ -75,7 +219,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-4 mb-4">
+            <div class="col-md-6 col-lg-4 mb-4 animate__animated animate__fadeInUp" style="animation-delay: 0.4s;">
                 <div class="card h-100 shadow-sm">
                     <img src="/images/feature-secure.png" class="card-img-top feature-image" alt="Secure and Easy">
                     <div class="card-body">
@@ -88,8 +232,102 @@
     </div>
 </section>
 
+
+<section class="testimonial-section">
+    <div class="container text-center">
+        <h2 class="mb-5 display-4 fw-bold animate__animated animate__fadeInUp">What Our Users Say</h2>
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="row">
+                                <div class="col-md-4 mb-4">
+                                    <div class="testimonial-card h-100">
+                                        <img src="https://images.unsplash.com/photo-1564564321837-a57b7070ac4f" class="rounded-circle mb-3" alt="Priya S.">
+                                        <p class="lead">"ABC-Scholarship-Finder helped me find a scholarship that perfectly matched my goals. I’m now studying abroad!"</p>
+                                        <h5 class="mt-3">Priyanshu S., Student</h5>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-4">
+                                    <div class="testimonial-card h-100">
+                                        <img src="https://images.unsplash.com/photo-1557862921-37829c790f19" class="rounded-circle mb-3" alt="Rahul M.">
+                                        <p class="lead">"The AI matching system is incredible! It saved me hours of searching for scholarships."</p>
+                                        <h5 class="mt-3">Rahul M., Graduate</h5>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-4">
+                                    <div class="testimonial-card h-100">
+                                        <img src="https://images.unsplash.com/photo-1548754144-65873dce8beb" class="rounded-circle mb-3" alt="Ananya R.">
+                                        <p class="lead">"The platform is so easy to use, and I felt secure knowing my data was protected."</p>
+                                        <h5 class="mt-3">Ananya R., Scholar</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="row">
+                                <div class="col-md-4 mb-4">
+                                    <div class="testimonial-card h-100">
+                                        <img src="https://plus.unsplash.com/premium_photo-1689977807477-a579eda91fa2" class="rounded-circle mb-3" alt="Vikram K.">
+                                        <p class="lead">"Thanks to ABC-Scholarship-Finder, I secured a grant that made my dream education possible."</p>
+                                        <h5 class="mt-3">Vikram K., Scholar</h5>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-4">
+                                    <div class="testimonial-card h-100">
+                                        <img src="https://images.unsplash.com/photo-1629872430082-93d8912beccf" class="rounded-circle mb-3" alt="Neha T.">
+                                        <p class="lead">"The personalized recommendations were spot-on, and the process was seamless!"</p>
+                                        <h5 class="mt-3">Neha T., Student</h5>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-4">
+                                    <div class="testimonial-card h-100">
+                                        <img src="https://plus.unsplash.com/premium_photo-1689977927774-401b12d137d6" class="rounded-circle mb-3" alt="Arjun P.">
+                                        <p class="lead">"I never knew so many scholarship opportunities existed until I used this platform!"</p>
+                                        <h5 class="mt-3">Arjun P., Graduate</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<section class="cta-section text-center">
+    <div class="container">
+        <h2 class="display-4 fw-bold mb-4 animate__animated animate__fadeInUp">Ready to Start Your Journey?</h2>
+        <p class="lead mb-5">Join thousands of students who have found their dream scholarships with ABC-Scholarship-Finder.</p>
+        <a th:href="@{/register}" class="btn btn-light btn-lg me-3 m-2 p-2">Get Started Now</a>
+        <a th:href="@{/scholarships/search}" class="btn btn-outline-light btn-lg m-2 p-2">Explore Scholarships</a>
+    </div>
+</section>
+
 <div th:replace="~{fragments/footer :: footer}"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>
 </body>
 </html>

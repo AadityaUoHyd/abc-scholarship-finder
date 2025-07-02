@@ -25,6 +25,11 @@ public class InfoController {
         return "contact";
     }
 
+    @GetMapping("/about")
+    public String aboutForm() {
+        return "about";
+    }
+
     @PostMapping("/contact")
     public String submitContactForm(@RequestParam String name,
                                     @RequestParam String email,
